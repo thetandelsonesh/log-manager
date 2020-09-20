@@ -1,0 +1,20 @@
+{
+  "name": "log-manager",
+  "version": "1.0.0",
+  "description": "Application for tracking employee time spent on particular projects",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql2": "^2.2.2",
+    "sequelize": "^6.3.5",
+    "uuid": "^8.3.0"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sonesh Tandel",
+  "license": "ISC"
+}
