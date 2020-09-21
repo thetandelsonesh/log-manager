@@ -22,9 +22,13 @@ module.exports = async (req, res) => {
   }
 
   try{
-    const projectStat = await projectModel.getStat(params.projectId);
-    const projectLogStat = await logModel.getProjectStat(params.projectId);
-    const employeeLogStat = await logModel.getEmployeeStat(params);
+    const projectStatData = await projectModel.getStat(params.projectId);
+    const projectLogStatData = await logModel.getProjectStat(params.projectId);
+    const employeeLogStatData = await logModel.getEmployeeStat(params);
+
+    const { total: projectStat } = projectStatData.toJSON();
+    const { total: projectLogStat } = projectLogStatData.toJSON();
+    const { total: employeeLogStat } = employeeLogStatData.toJSON();
 
     const data = {
       projectStat,
