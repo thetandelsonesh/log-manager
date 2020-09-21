@@ -1,0 +1,52 @@
+import axios from 'axios';
+
+const apiBaseURL = process.env.NODE_ENV === 'production'
+  ? 'https://url.com/api/'
+  : 'http://localhost:5000/api/';
+
+const xAPIKey = 'dc580f09-3fcb-4da4-8927-40924a329626';
+
+axios.defaults.baseURL =  apiBaseURL;
+
+axios.interceptors.request.use(
+  (config) => {
+    config.headers['x-api-key'] = xAPIKey;
+    config.headers['Content-Type'] = 'application/json';
+    return config;
+  },
+  (error) => {
+    console.error("Interceptor : Error occured due to : ", error);
+    return Promise.reject(error);
+  }
+);
+
+export default (type, url, data, config = {}) => {
+  return new Promise((resolve, reject) => {
+    let axiosParams = {
+      method : type,
+      url : url,
+      config: config
+    };
+    if (type === 'get') { axiosParams.params = data} else { axiosParams.data = data}
+    axios(axiosParams)
+      .then((successResult) => {
+        const { error, data, msg } = successResult.data;
+        if(error){
+          reject(error);
+        } else {
+          resolve({data, msg});
+        }
+      })
+      .catch((errorResult) => {
+        if (!errorResult.response) {
+          reject({
+            code: 'ERROR',
+            msg: 'WE are under maintenance!'
+          })
+        } else {
+          const response = errorResult.response.data;
+          reject(response.error);
+        }
+      });
+  });
+};

@@ -1,0 +1,29 @@
+@import "./src/assets/scss/_all.scss";
+
+header{
+  z-index: 20;
+  width: 100%;
+  height: $header-height;
+  background: #efefef;
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-shadow: 0 0 12px rgba(#000, 0.2);
+  @extend %clearfix;
+
+  .logo-container{
+    float: left;
+    height: inherit;
+    img{
+      padding: 16px;
+      height: 100%;
+      width: auto;
+    }
+  }
+  .button-container{
+    float: right;
+    height: inherit;
+    padding: 16px;
+    line-height: calc(#{$header-height} - 32px);
+  }
+}

@@ -1,0 +1,63 @@
+@import "./assets/scss/variables";
+@import "./assets/scss/transition";
+
+.main{
+  min-height: 100%;
+  width: calc(100% - #{$sidebar-width});
+  padding: 42px;
+  padding-top: calc(#{$header-height} + 42px);
+  margin-left: $sidebar-width;
+  @include transition(all 300ms ease);
+}
+
+.sidebar-ctrl{
+  position: fixed;
+  left: 0;
+  top: $header-height;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  outline: none;
+  border: none;
+  background: none;
+  line-height: 0;
+  padding: 0;
+  .anticon{
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    color: white;
+    font-size: 20px;
+  }
+  svg{
+    pointer-events: none;
+  }
+
+  #sidebar-ctrl-bg{
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    top: 0;
+    polygon{
+      fill: $primary;
+    }
+  }
+}
+
+.no-sidebar{
+  .main{
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+h1{
+  font-weight: bold;
+}
+
+.ant-table{
+  box-shadow: 0 0 12px rgba(#000000, 0.15);
+  .ant-table-thead > tr > th{
+    font-weight: bold;
+  }
+}
