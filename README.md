@@ -11,6 +11,10 @@
 * **db folder** - database schema, migration files & seeders (SequelizeJS is used)
 * **frontend folder** - CRA application, build folder will be exposed to public from express app (separate repo recommended, with own node express server)
 
+### API Endpoints
+```
+https://www.getpostman.com/collections/61a782f46f0948ed3f34
+```
 
 #### Sequelize CLI Commands for Reference
 
