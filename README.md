@@ -1,6 +1,35 @@
 # Log Manager
 ##### The project deals with employees logging time spend on particular project
 
+##DEMO
+```
+http://ec2-13-126-206-180.ap-south-1.compute.amazonaws.com/
+```
+
+### Configuration
+* Node Version : v10.22.1
+* Database: MySQL (change db name in /db/config.json file)
+
+
+### Setup Step
+1. Create Database in MySQL
+2. run ``npm install`` to install dependencies for backend
+3. For frontend to work, build folder should be updated
+4. build folder has been pushed on repository to avoid additional steps (refer Frontend Setup)
+5. run migrations to fill in create tables and fill data in database
+    ```
+   sequelize db:migrate --env development
+   sequelize db:seed:all --env development
+   ```
+6. run ``npm start`` command to start server
+7. use local link ``localhost:5000`` to view web app.
+
+### Frontend Step - React
+* do ``cd frontend && npm install && npm run build`` to update frontend
+
+
+### Additional Notes
+
 > Recommended way : Separate Repository for Backend & Frontend 
 
 > Clubbed together as this is mini project to enable minimal setup
