@@ -92,3 +92,31 @@ h1{
     font-weight: bold;
   }
 }
+
+.page-header{
+  margin-bottom: 42px;
+  .page-filters{
+    text-align: right;
+    @include sm{
+      text-align: initial;
+    }
+    .ant-select{
+      margin: 0 12px;
+      margin-bottom: 24px;
+
+      @include sm{
+        display: block;
+        width: 100%;
+        margin: 0;
+        margin-bottom: 24px;
+      }
+    }
+    .ant-input-search{
+      margin-bottom: 24px;
+      max-width: 320px;
+      @include sm{
+        width: 100%;
+      }
+    }
+  }
+}

@@ -95,13 +95,13 @@ const DashboardComponent = (props) => {
 
   return (
     <>
-      <div className="dashboard-header">
+      <div className="page-header">
         <Row>
           <Col xs={24} sm={24} lg={12}>
             <h1>Dashboard</h1>
           </Col>
           <Col xs={24} sm={24} lg={12}>
-            <div className="dashboard-filters">
+            <div className="page-filters">
               <Select labelInValue allowClear={true} size={'large'} placeholder={'Select Project'} onChange={onProjectChange}>
                 {projectOptions}
               </Select>
@@ -117,20 +117,20 @@ const DashboardComponent = (props) => {
         <Row gutter={40}>
           <Col xs={24} md={12} lg={8}>
             <div className="stat-cell">
-              <p>Project Time log: { project?.label?? 'All'}</p>
-              <h3>{timeConverter(stats.projectLogStat)}</h3>
+              <p>Project Time log: <b>{ project?.label?? 'All'}</b></p>
+              <h3>{timeConverter(stats.projectLogStat) ?? '-'}</h3>
             </div>
           </Col>
           <Col xs={24} md={12} lg={8}>
             <div className="stat-cell">
-              <p>Estimated Project Time: { project?.label?? 'All'}</p>
-              <h3>{timeConverter(stats.projectStat)}</h3>
+              <p>Estimated Project Time: <b>{ project?.label?? 'All'}</b></p>
+              <h3>{timeConverter(stats.projectStat) ?? '-' }</h3>
             </div>
           </Col>
           <Col xs={24} md={12} lg={8}>
             <div className="stat-cell">
-              <p>Employee Time log: { employee?.label?? 'All'}</p>
-              <h3>{timeConverter(stats.employeeLogStat)}</h3>
+              <p>Employee Time log: <b>{ employee?.label?? 'All'}</b></p>
+              <h3>{timeConverter(stats.employeeLogStat) ?? '-'}</h3>
             </div>
           </Col>
         </Row>

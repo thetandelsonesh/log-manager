@@ -1,4 +1,5 @@
 export default (n) => {
+  if(!n) return null;
   n = parseInt(n);
   if(n < 60){
     return `${n}m`

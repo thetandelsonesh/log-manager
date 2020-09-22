@@ -13,7 +13,7 @@ exports.getAll = (params) => {
       attributes: ['name', 'client', 'estimate']
     }],
     order: [
-      ['createdAt', 'DESC']
+      ['logDate', 'DESC']
     ],
     limit: params.limit,
     offset: params.offset,

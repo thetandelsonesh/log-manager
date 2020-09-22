@@ -1,5 +1,9 @@
 import React, {useEffect} from "react";
-import { Table} from "antd";
+import {Col, Input, Row, Table} from "antd";
+
+import debounce from '../../utils/debounce';
+
+const debounceSearch = debounce();
 
 const columns = [
   {
@@ -42,9 +46,31 @@ const EmployeeComponent = (props) => {
     props.fetchEmployees();
   }, []);
 
+  const onSearchChange = (e) => {
+    const {value} = e.target;
+    debounceSearch(() => props.fetchEmployees(value), 300);
+  }
+
+
   return (
     <>
-      <h1>Employees</h1>
+      <div className="page-header">
+        <Row>
+          <Col xs={24} sm={24} lg={12}>
+            <h1>Employees</h1>
+          </Col>
+          <Col xs={24} sm={24} lg={12}>
+            <div className="page-filters">
+              <Input.Search
+                allowClear
+                placeholder="Search Employees..."
+                size="large"
+                onChange={onSearchChange}
+              />
+            </div>
+          </Col>
+        </Row>
+      </div>
       <Table
         rowKey={'id'}
         columns={columns}
