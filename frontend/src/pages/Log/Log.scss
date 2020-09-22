@@ -1,0 +1,13 @@
+.log-form-container{
+  padding: 42px;
+  box-shadow: 0 0 12px rgba(#000, 0.15);
+  width: 100%;
+  max-width: 520px;
+  .ant-picker-large, .ant-input-number{
+    width: 100%;
+  }
+
+  .ant-btn{
+    margin-top: 16px;
+  }
+}

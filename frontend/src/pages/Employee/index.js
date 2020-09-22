@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Employee from "./EmployeeComponent";
+import EmployeeComponent from "./EmployeeComponent";
 import { fetchEmployees } from './EmployeeActions';
 
 
@@ -11,4 +11,4 @@ const mapDispatchToProps = {
   fetchEmployees
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Employee);
+export default connect(mapStateToProps, mapDispatchToProps)(EmployeeComponent);

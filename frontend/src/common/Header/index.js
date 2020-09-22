@@ -1,5 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Button } from "antd";
+import { FieldTimeOutlined } from '@ant-design/icons';
 import './Header.scss';
 import logo from '../../assets/images/logo.png';
 
@@ -10,7 +12,7 @@ const Header = () => {
         <img src={logo} alt="Log Manager"/>
       </div>
       <div className="button-container">
-        <Button size="large" type="primary">Log Time</Button>
+        <Link to={'/add-log'}><Button icon={<FieldTimeOutlined />} size="large" type="primary">Log Time</Button></Link>
       </div>
     </header>
   );

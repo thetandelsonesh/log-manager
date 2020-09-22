@@ -7,12 +7,15 @@ exports.getOne = (id) => {
   });
 }
 
-exports.getAll = (search) => {
-  console.log(search);
+exports.getAll = (search, minimal) => {
   const options = {
     order: [
       ['name', 'ASC']
     ]
+  }
+
+  if(minimal){
+    options.attributes = ['id', 'name'];
   }
 
   if(search){

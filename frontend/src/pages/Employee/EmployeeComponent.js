@@ -6,6 +6,7 @@ const columns = [
     title: 'Name',
     dataIndex: 'name',
     key: 'name',
+    fixed: 'left',
   },
   {
     title: 'Employee ID',
@@ -34,7 +35,7 @@ const columns = [
   },
 ];
 
-const Projects = (props) => {
+const EmployeeComponent = (props) => {
 
   useEffect(() => {
     props.fetchEmployees();
@@ -49,9 +50,10 @@ const Projects = (props) => {
         loading={props.loading}
         pagination={false}
         dataSource={props.list}
+        scroll={{ x: 1200 }}
       />
     </>
   )
 }
 
-export default Projects;
+export default EmployeeComponent;

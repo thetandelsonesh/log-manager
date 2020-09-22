@@ -1,6 +1,8 @@
 import React, { useState, useEffect} from "react";
 import { Table, Row, Col, Select} from "antd";
 
+import timeConverter from '../../utils/timeConverter';
+
 import './Dashboard.scss';
 
 const columns = [
@@ -8,6 +10,7 @@ const columns = [
     title: 'Project',
     dataIndex: 'project',
     key: 'project',
+    fixed: 'left',
     render: (text, record) => record.project.name
   },
   {
@@ -25,25 +28,70 @@ const columns = [
     title: 'Logged Time',
     dataIndex: 'logTime',
     key: 'logTime',
-    render: (text) => (parseInt(text) / 1440).toFixed(2)
+    render: (text) => timeConverter(text)
   },
 ];
 
 const DashboardComponent = (props) => {
 
-  const [project, setProject] = useState(null);
-  const [employee, setEmployee] = useState(null);
+  const [employee, setEmployee] = useState({});
+  const [project, setProject] = useState({});
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 10,
+    total: 1,
+  });
 
   useEffect(() => {
+    const { employeeList, projectList} = props.filters;
+    projectList.length === 0 && props.fetchProjectOptions();
+    employeeList.length === 0 && props.fetchEmployeeOptions();
     props.fetchLogs();
     props.fetchLogStats();
   }, []);
 
   useEffect(() => {
-    console.log(props);
-  })
+    const params = { page: 1 };
+    if(employee && employee.value) params.employee = employee.value;
+    if(project && project.value) params.project = project.value;
+    props.fetchLogs(params);
+    props.fetchLogStats(params);
+  }, [employee, project]);
+
+  useEffect(() => {
+    setPagination({
+      ...pagination,
+      total: props.logs.total
+    });
+  },[props.logs]);
+
+  const onEmployeeChange = (val) => {
+    setEmployee(val);
+  }
+  const onProjectChange = (val) => {
+    setProject(val);
+  }
+
+  const handleTableChange = (pagination) => {
+    const params = { page: pagination.current }
+    if(employee && employee.value) params.employee = employee.value;
+    if(project && project.value) params.project = project.value;
+    setPagination(pagination);
+    props.fetchLogs(params)
+  }
 
   const { stats } = props.logStats
+
+  const { employeeList, projectList} = props.filters;
+
+  const employeeOptions = employeeList.map(({id, name}, index) => {
+    return <Select.Option key={id} value={id} >{name}</Select.Option>
+  })
+
+  const projectOptions = projectList.map(({id, name}, index) => {
+    return <Select.Option key={id} value={id} >{name}</Select.Option>
+  })
+
   return (
     <>
       <div className="dashboard-header">
@@ -53,15 +101,11 @@ const DashboardComponent = (props) => {
           </Col>
           <Col xs={24} sm={12}>
             <div className="dashboard-filters">
-              <Select size={'large'} placeholder={'Select Project'}>
-                <Select.Option value={'a'}>A</Select.Option>
-                <Select.Option value={'b'}>B</Select.Option>
-                <Select.Option value={'c'}>C</Select.Option>
+              <Select labelInValue allowClear={true} size={'large'} placeholder={'Select Project'} onChange={onProjectChange}>
+                {projectOptions}
               </Select>
-              <Select size={'large'} placeholder={'Select Employee'}>
-                <Select.Option value={'a'}>A</Select.Option>
-                <Select.Option value={'b'}>B</Select.Option>
-                <Select.Option value={'c'}>C</Select.Option>
+              <Select labelInValue allowClear={true} size={'large'} placeholder={'Select Employee'} onChange={onEmployeeChange}>
+                {employeeOptions}
               </Select>
             </div>
           </Col>
@@ -72,20 +116,20 @@ const DashboardComponent = (props) => {
         <Row gutter={40}>
           <Col xs={24} sm={8}>
             <div className="stat-cell">
-              <p>Time log: {}</p>
-              <h3>{stats.projectLogStat}</h3>
+              <p>Project Time log: { project?.label?? 'All'}</p>
+              <h3>{timeConverter(stats.projectLogStat)}</h3>
             </div>
           </Col>
           <Col xs={24} sm={8}>
             <div className="stat-cell">
-              <p>Estimated Project Time: {}</p>
-              <h3>{stats.projectStat}</h3>
+              <p>Estimated Project Time: { project?.label?? 'All'}</p>
+              <h3>{timeConverter(stats.projectStat)}</h3>
             </div>
           </Col>
           <Col xs={24} sm={8}>
             <div className="stat-cell">
-              <p>Employee Time log: {}</p>
-              <h3>{stats.employeeLogStat}</h3>
+              <p>Employee Time log: { employee?.label?? 'All'}</p>
+              <h3>{timeConverter(stats.employeeLogStat)}</h3>
             </div>
           </Col>
         </Row>
@@ -94,8 +138,10 @@ const DashboardComponent = (props) => {
         rowKey={'id'}
         columns={columns}
         loading={props.logs.loading}
-        pagination={false}
         dataSource={props.logs.list}
+        pagination={pagination}
+        onChange={handleTableChange}
+        scroll={{ x: 1200 }}
       />
     </>
   )

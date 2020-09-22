@@ -8,10 +8,17 @@ exports.getOne = (id) => {
 }
 
 
-exports.getAll = (search) => {
+exports.getAll = (search, minimal) => {
   const options = {
     order: [
       ['created_at', 'DESC']
+    ]
+  }
+
+  if(minimal){
+    options.attributes = ['id', 'name'];
+    options.order = [
+      ['name', 'ASC']
     ]
   }
 

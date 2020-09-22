@@ -14,8 +14,8 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": "",
+    "username": "log_manager",
+    "password": "manager#LOG@31",
     "database": "log_manager",
     "host": "127.0.0.1",
     "dialect": "mysql"

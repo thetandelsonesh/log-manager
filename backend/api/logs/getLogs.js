@@ -26,7 +26,7 @@ module.exports = async (req, res) => {
     return;
   }
 
-  params.limit = 25;
+  params.limit = 10;
   params.offset = ((parseInt(params.page) - 1) * params.limit);
 
   try{

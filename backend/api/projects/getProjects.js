@@ -5,7 +5,7 @@ const { INVALID_DATA, ERROR_500 }  = require('../../../constants/errorCodes');
 const schema = Joi.string().regex(/^[a-zA-Z0-9 @%#&!]*$/i).required();
 
 module.exports = async (req, res) => {
-  let { search } = req.query;
+  let { search, minimal = false } = req.query;
 
   if(search){
     try{
@@ -17,7 +17,7 @@ module.exports = async (req, res) => {
   }
 
   try{
-    const data = await projectModel.getAll(search);
+    const data = await projectModel.getAll(search, !!minimal);
     res.status(200).send({
       data: data,
       msg: 'Project List'

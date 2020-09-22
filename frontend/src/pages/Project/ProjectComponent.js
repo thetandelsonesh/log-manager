@@ -1,11 +1,13 @@
 import React, {useEffect} from "react";
 import { Table} from "antd";
+import timeConverter from '../../utils/timeConverter';
 
 const columns = [
   {
     title: 'Project Name',
     dataIndex: 'name',
     key: 'name',
+    fixed: 'left',
   },
   {
     title: 'Client',
@@ -21,11 +23,11 @@ const columns = [
     title: 'Estimate',
     dataIndex: 'estimate',
     key: 'estimate',
-    render: (text) => (parseInt(text) / 1440).toFixed(2)
+    render: (text) => timeConverter(text)
   },
 ];
 
-const Projects = (props) => {
+const ProjectComponent = (props) => {
 
   useEffect(() => {
     props.fetchProjects();
@@ -40,9 +42,10 @@ const Projects = (props) => {
         loading={props.loading}
         pagination={false}
         dataSource={props.list}
+        scroll={{ x: 1200 }}
       />
     </>
   )
 }
 
-export default Projects;
+export default ProjectComponent;
