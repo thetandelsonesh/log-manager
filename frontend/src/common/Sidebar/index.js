@@ -1,10 +1,17 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, {useEffect} from "react";
+import { NavLink, withRouter } from "react-router-dom";
 import { Avatar } from "antd";
 import { DashboardFilled, UserOutlined, ProjectFilled } from '@ant-design/icons';
 import './Sidebar.scss'
 
-const Sidebar = () => {
+const Sidebar = (props) => {
+
+  useEffect(() => {
+    const unListen = props.history.listen(() => {
+      if(props.isMobile) props.hideSidebar(false);
+    })
+    return () => unListen();
+  })
 
   return (
     <div className="sidebar">
@@ -33,4 +40,4 @@ const Sidebar = () => {
   );
 }
 
-export default Sidebar;
+export default withRouter(Sidebar);

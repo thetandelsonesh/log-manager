@@ -7,6 +7,7 @@ const columns = [
     dataIndex: 'name',
     key: 'name',
     fixed: 'left',
+    width: 160,
   },
   {
     title: 'Employee ID',

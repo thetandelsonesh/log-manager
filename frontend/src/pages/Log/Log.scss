@@ -1,8 +1,15 @@
+@import "../../assets/scss/media_query";
+
 .log-form-container{
   padding: 42px;
   box-shadow: 0 0 12px rgba(#000, 0.15);
   width: 100%;
   max-width: 520px;
+
+  @include xs{
+    padding: 16px;
+  }
+
   .ant-picker-large, .ant-input-number{
     width: 100%;
   }

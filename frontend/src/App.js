@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { HashRouter, Route , Switch} from "react-router-dom";
 import {ArrowLeftOutlined, ArrowRightOutlined} from "@ant-design/icons";
 
@@ -12,18 +12,45 @@ import Employee from './pages/Employee';
 import Project from './pages/Project';
 import Log from './pages/Log';
 
-const App = () => {
+const App = (props) => {
   const [fold, setFold] = useState(false);
-
-  const toggleSidebar = () => {
+  const [mobile, setMobile] = useState(false);
+  const toggleSidebar = (override) => {
     setFold(!fold);
   }
+  const hideSidebar = () => {
+    setFold(true);
+  }
+
+  const checkSidebar = () => {
+    if(window.innerWidth > 991){
+      setFold(false);
+      setMobile(false);
+    }else{
+      setFold(true);
+      setMobile(true);
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', checkSidebar);
+    checkSidebar(window.innerWidth);
+    console.log(props);
+    return () => {
+      window.removeEventListener('resize', checkSidebar);
+    }
+  }, [])
+
+  const mainClasses = [];
+  fold ? mainClasses.push('no-sidebar') : mainClasses.push('has-sidebar');
+  if(mobile) mainClasses.push('is-mobile');
 
   return (
-    <main className={fold ? 'no-sidebar' : ''}>
+    <main className={mainClasses.join(' ')}>
       <HashRouter>
         <Header/>
-        <Sidebar/>
+        <Sidebar isMobile={mobile} hideSidebar={hideSidebar}/>
+        <div id="mobile-overlay" onClick={toggleSidebar}/>
 
         <button className="sidebar-ctrl" onClick={toggleSidebar}>
           <svg id="sidebar-ctrl-bg" height="50" width="50">

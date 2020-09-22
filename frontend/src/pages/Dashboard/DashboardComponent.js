@@ -11,6 +11,7 @@ const columns = [
     dataIndex: 'project',
     key: 'project',
     fixed: 'left',
+    width: 160,
     render: (text, record) => record.project.name
   },
   {
@@ -96,10 +97,10 @@ const DashboardComponent = (props) => {
     <>
       <div className="dashboard-header">
         <Row>
-          <Col xs={24} sm={12}>
+          <Col xs={24} sm={24} lg={12}>
             <h1>Dashboard</h1>
           </Col>
-          <Col xs={24} sm={12}>
+          <Col xs={24} sm={24} lg={12}>
             <div className="dashboard-filters">
               <Select labelInValue allowClear={true} size={'large'} placeholder={'Select Project'} onChange={onProjectChange}>
                 {projectOptions}
@@ -114,19 +115,19 @@ const DashboardComponent = (props) => {
 
       <div className="dashboard-stats">
         <Row gutter={40}>
-          <Col xs={24} sm={8}>
+          <Col xs={24} md={12} lg={8}>
             <div className="stat-cell">
               <p>Project Time log: { project?.label?? 'All'}</p>
               <h3>{timeConverter(stats.projectLogStat)}</h3>
             </div>
           </Col>
-          <Col xs={24} sm={8}>
+          <Col xs={24} md={12} lg={8}>
             <div className="stat-cell">
               <p>Estimated Project Time: { project?.label?? 'All'}</p>
               <h3>{timeConverter(stats.projectStat)}</h3>
             </div>
           </Col>
-          <Col xs={24} sm={8}>
+          <Col xs={24} md={12} lg={8}>
             <div className="stat-cell">
               <p>Employee Time log: { employee?.label?? 'All'}</p>
               <h3>{timeConverter(stats.employeeLogStat)}</h3>

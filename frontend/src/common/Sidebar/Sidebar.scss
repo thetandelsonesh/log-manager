@@ -1,6 +1,7 @@
 @import "./src/assets/scss/_all.scss";
 
 .sidebar{
+  z-index: 10;
   width: $sidebar-width;
   height: calc(100vh - #{$header-height});
   background: $primary;
